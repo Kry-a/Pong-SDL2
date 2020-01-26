@@ -1,5 +1,5 @@
 # Pong-SDL2
-A poorly written Pong port to SDL2
+A poorly written port of Pong to SDL2
 
 ## Building (Linux)
 * 1 . Install the dependencies
