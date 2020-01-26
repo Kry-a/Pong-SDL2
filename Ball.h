@@ -10,8 +10,8 @@
 
 class Ball {
 public:
-    float velocityX;
-    float velocityY;
+    float xVelocity;
+    float yVelocity;
     float radius;
     float xPos;
     float yPos;
