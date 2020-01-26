@@ -17,10 +17,14 @@ void Ball::Update() {
     yPos += yVelocity;
 }
 
-Ball::Ball(float x, float y) {
+Ball::Ball(int x, int y) {
     xVelocity = Random::get(4, 8);
     yVelocity = Random::get(-8, 8);
     radius = 10;
-    xPos = x;
-    yPos = y;
+    xPos = (float)x;
+    yPos = (float)y;
+}
+
+void Ball::Render(SDL_Renderer *pRenderer) {
+
 }

@@ -7,6 +7,7 @@
 
 
 #include <SDL_rect.h>
+#include <SDL_render.h>
 
 class Ball {
 public:
@@ -19,7 +20,8 @@ public:
 public:
     void Bounce();
     void Update();
-    Ball(float x, float y);
+    Ball(int x, int y);
+    void Render(SDL_Renderer *pRenderer);
 };
 
 

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include "Paddle.h"
+#include "Ball.h"
 
 // Declares the width and height of the render area of the window
 #define SCREEN_WIDTH 512
@@ -20,6 +21,7 @@ double deltaTime = 0;
 bool playing = true;
 Paddle leftPaddle(11, SCREEN_HEIGHT / 2 - 33);
 Paddle rightPaddle(SCREEN_WIDTH - 14, SCREEN_HEIGHT / 2 - 33);
+Ball ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
 void ProcessEvents(SDL_Event& pEvent, SDL_Window& pWindow);
 void Controls();
@@ -50,6 +52,8 @@ int main() {
         // Process all the events
         ProcessEvents(event, *window);
         Controls();
+
+
 
         // Renders everything to the screen
         Render(renderer, window);
