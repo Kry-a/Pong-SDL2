@@ -7,5 +7,5 @@ set(CMAKE_CXX_STANDARD 20)
 find_package(SDL2 REQUIRED)
 find_package(SDL2_gfx REQUIRED)
 
-add_executable(Pong main.cpp Paddle.cpp Paddle.h Utils.cpp Utils.h)
+add_executable(Pong main.cpp Paddle.cpp Paddle.h Utils.cpp Utils.h Ball.cpp Ball.h)
 target_link_libraries(${PROJECT_NAME} SDL2::Main SDL2::GFX)
