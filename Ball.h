@@ -12,13 +12,14 @@ class Ball {
 public:
     float xVelocity;
     float yVelocity;
-    float radius;
+    int radius;
     float xPos;
     float yPos;
 
 public:
     void Bounce();
     void Update();
+    Ball(float x, float y);
 };
 
 
