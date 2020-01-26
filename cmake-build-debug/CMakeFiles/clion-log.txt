@@ -1,0 +1,20 @@
+/home/krasno/Apps/clion-2019.3.2/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/krasno/CLionProjects/Pong
+CMake Error at CMakeLists.txt:7 (find_package):
+  By not providing "FindSDL2_gfx.cmake" in CMAKE_MODULE_PATH this project has
+  asked CMake to find a package configuration file provided by "SDL2_gfx",
+  but CMake did not find one.
+
+  Could not find a package configuration file provided by "SDL2_gfx" with any
+  of the following names:
+
+    SDL2_gfxConfig.cmake
+    sdl2_gfx-config.cmake
+
+  Add the installation prefix of "SDL2_gfx" to CMAKE_PREFIX_PATH or set
+  "SDL2_gfx_DIR" to a directory containing one of the above files.  If
+  "SDL2_gfx" provides a separate development package or SDK, be sure it has
+  been installed.
+
+
+-- Configuring incomplete, errors occurred!
+See also "/home/krasno/CLionProjects/Pong/cmake-build-debug/CMakeFiles/CMakeOutput.log".

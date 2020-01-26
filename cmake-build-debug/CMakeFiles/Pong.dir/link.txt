@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/Pong.dir/main.cpp.o CMakeFiles/Pong.dir/Paddle.cpp.o CMakeFiles/Pong.dir/Utils.cpp.o  -o Pong -lSDL2 
