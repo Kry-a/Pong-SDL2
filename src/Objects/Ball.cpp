@@ -39,14 +39,14 @@ bool Ball::CheckCollision(Paddle &lPaddle, Paddle &rPaddle, int w, int h, int &p
     // Test if the ball is colliding with the border of the screen
     if (xPos >= (float)w - (float)radius) {
         xVelocity = -xVelocity;
-        pScoreB++;
+        pScoreA++;
 
         // Return the ball to the original place
         RestartBall();
         return true;
     } else if (xPos <= (float)radius) {
         xVelocity = -xVelocity;
-        pScoreA++;
+        pScoreB++;
 
         // Return the ball to the original place
         RestartBall();
