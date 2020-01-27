@@ -53,7 +53,8 @@ int main() {
         ProcessEvents(event, *window);
         Controls();
 
-
+        ball.Update();
+        ball.CheckCollision(leftPaddle, rightPaddle, SCREEN_WIDTH, SCREEN_HEIGHT);
 
         // Renders everything to the screen
         Render(renderer, window);
@@ -165,7 +166,8 @@ void Render(SDL_Renderer *pRenderer, SDL_Window *pWindow) {
     leftPaddle.Render(pRenderer);
     rightPaddle.Render(pRenderer);
 
-    // TODO: Render the ball
+    // Render the ball
+    ball.Render(pRenderer);
 
     // Finally render it all out
     SDL_RenderPresent(pRenderer);

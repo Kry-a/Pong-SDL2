@@ -8,6 +8,7 @@
 
 #include <SDL_rect.h>
 #include <SDL_render.h>
+#include "Paddle.h"
 
 class Ball {
 public:
@@ -16,10 +17,12 @@ public:
     int radius;
     float xPos;
     float yPos;
+    SDL_Color colour{.r = 255, .g = 255, .b = 255, .a = 255};
 
 public:
     void Bounce();
     void Update();
+    void CheckCollision(Paddle lPaddle, Paddle rPaddle, int w, int h);
     Ball(int x, int y);
     void Render(SDL_Renderer *pRenderer);
 };
