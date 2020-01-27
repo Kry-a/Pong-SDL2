@@ -9,6 +9,5 @@ addons:
       - cmake
       - make
       - libsdl2-dev
-      - libsdl2-gfx-dev
 
 script: ./build.sh

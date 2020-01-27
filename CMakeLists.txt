@@ -34,7 +34,6 @@ set(CMAKE_CXX_STANDARD 20)
 
 #set(SDL2_INCLUDE_DIR)
 find_package(SDL2 REQUIRED)
-find_package(SDL2_gfx REQUIRED)
 
 add_subdirectory(src/include/random)
 
@@ -59,5 +58,5 @@ if (WIN64)
 endif(WIN64)
 
 add_executable(Pong src/main.cpp src/Objects/Paddle.cpp src/Objects/Paddle.h src/Utils.cpp src/Utils.h src/Objects/Ball.cpp src/Objects/Ball.h src/PongRPC.cpp src/PongRPC.h src/MP.cpp src/MP.h)
-target_link_libraries(${PROJECT_NAME} SDL2::Main SDL2::GFX effolkronium_random)
+target_link_libraries(${PROJECT_NAME} SDL2::Main effolkronium_random)
 target_link_libraries(${PROJECT_NAME} ${DISCORD_RPC})

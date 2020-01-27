@@ -13,6 +13,7 @@ class Utils {
 public:
     static int SetDrawColour(SDL_Renderer *renderer, SDL_Color c);
     static void DrawCircle(SDL_Renderer * renderer, int32_t centreX, int32_t centreY, int32_t radius);
+    static void DrawFilledCircle(SDL_Renderer *pRenderer, int centreX, int centreY, int radius);
 };
 
 

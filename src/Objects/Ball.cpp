@@ -4,6 +4,7 @@
 
 #include <effolkronium/random.hpp>
 #include "Ball.h"
+#include "../Utils.h"
 #include <SDL2/SDL2_gfxPrimitives.h>
 
 using Random = effolkronium::random_static;
@@ -89,7 +90,8 @@ Ball::Ball(int x, int y) {
  * @param pRenderer The target renderer
  */
 void Ball::Render(SDL_Renderer *pRenderer) {
-    filledCircleRGBA(pRenderer, xPos, yPos, radius, colour.r, colour.g, colour.b, colour.a);
+    //filledCircleRGBA(pRenderer, xPos, yPos, radius, colour.r, colour.g, colour.b, colour.a);
+    Utils::DrawFilledCircle(pRenderer, (int)xPos, (int)yPos, radius);
 }
 
 /**
