@@ -9,7 +9,7 @@ A poorly written port of Pong to SDL2
 ## Building (Linux)
 * 1 . Install the dependencies
 ```bash
-sudo apt install cmake make build-essential gcc libsdl2-dev libsdl2-gfx-dev
+sudo apt install cmake make build-essential gcc libsdl2-dev
 ```
 * 2 . Build
 ```bash
