@@ -38,6 +38,9 @@ int main() {
     SDL_Renderer *renderer;
     SDL_Window *window;
 
+    // Tell SDL to not disable compositor
+    SDL_SetHint(SDL_HINT_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR, "0");
+
     // Init the video thingy
     SDL_Init(SDL_INIT_VIDEO);
     // Create Window and Renderer
