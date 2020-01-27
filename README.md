@@ -16,9 +16,7 @@ sudo apt install cmake make build-essential gcc libsdl2-dev libsdl2-gfx-dev
 git clone https://github.com/KrasnotR/Pong-SDL2.git
 cd Pong-SDL2
 git submodule update --init --recursive
-mkdir build && cd build
-cmake ..
-make -j4
+./build.sh
 ```
 * 3 . Run the program
 ```bash
