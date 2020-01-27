@@ -9,6 +9,14 @@ if(UNIX AND APPLE)
     set(MACOS TRUE)
 endif()
 
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)
+endif()
+
+set(CMAKE_CXX_FLAGS "-Wall -Wextra")
+set(CMAKE_CXX_FLAGS_DEBUG "-g")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+
 #[[set(CMAKE_SYSTEM_NAME Windows)
 
 set(triple x86_64-w64-windows-gnu)
@@ -50,6 +58,6 @@ if (WIN64)
     set(DISCORD_RPC ${CMAKE_CURRENT_SOURCE_DIR}/include/discord-rpc/win64-dynamic/lib/discord-rpc.lib)
 endif(WIN64)
 
-add_executable(Pong src/main.cpp src/Objects/Paddle.cpp src/Objects/Paddle.h src/Utils.cpp src/Utils.h src/Objects/Ball.cpp src/Objects/Ball.h src/PongRPC.cpp src/PongRPC.h)
+add_executable(Pong src/main.cpp src/Objects/Paddle.cpp src/Objects/Paddle.h src/Utils.cpp src/Utils.h src/Objects/Ball.cpp src/Objects/Ball.h src/PongRPC.cpp src/PongRPC.h src/MP.cpp src/MP.h)
 target_link_libraries(${PROJECT_NAME} SDL2::Main SDL2::GFX effolkronium_random)
 target_link_libraries(${PROJECT_NAME} ${DISCORD_RPC})
