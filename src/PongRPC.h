@@ -7,6 +7,10 @@
 
 
 #include <discord_rpc.h>
+#include "MP.h"
+
+static long First;
+static long LastUpload;
 
 class PongRPC {
 public:
@@ -17,8 +21,11 @@ public:
     static void HandleDiscordJoinGame(const char* joinSecret);
     static void HandleDiscordSpectateGame(const char* spectateSecret);
     static void HandleDiscordJoinRequest(const DiscordUser* request);
-    static void UpdatePresence(int scoreA, int scoreB);
+    static void UpdatePresence(int scoreA, int scoreB, MultiplayerMode multiplayerMode);
 };
+
+//long PongRPC::First = 0;
+//long PongRPC::LastUpload = 0;
 
 
 #endif //PONG_PONGRPC_H

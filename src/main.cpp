@@ -13,7 +13,7 @@
 #define PADDLE_SPEED 500
 
 // If the game is supposed to be played by two people
-bool twoPlayers = true;
+MultiplayerMode mode = LocalMultiplayer;
 
 // Delta time stuff
 Uint64 NOW = SDL_GetPerformanceCounter();
@@ -21,15 +21,15 @@ Uint64 LAST = 0;
 double deltaTime = 0;
 
 bool playing = true;
-Paddle leftPaddle(11, SCREEN_HEIGHT / 2 - 33);
-Paddle rightPaddle(SCREEN_WIDTH - 14, SCREEN_HEIGHT / 2 - 33);
+Paddle leftPaddle(11, SCREEN_HEIGHT / 2.0f - 33);
+Paddle rightPaddle(SCREEN_WIDTH - 14, SCREEN_HEIGHT / 2.0f - 33);
 Ball ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
 int scoreA = 0;
 int scoreB = 0;
 
 void ProcessEvents(SDL_Event& pEvent, SDL_Window& pWindow);
-void Controls();
+void Controls(SDL_Renderer *pRenderer);
 void Render(SDL_Renderer *pRenderer, SDL_Window *pWindow);
 
 int main() {
@@ -50,8 +50,9 @@ int main() {
             SCREEN_WIDTH, SCREEN_HEIGHT, 0);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
+    // Init Discord RPC
     PongRPC::InitRPC();
-    PongRPC::UpdatePresence(scoreA, scoreB);
+    PongRPC::UpdatePresence(scoreA, scoreB, mode);
 
     // A loop that executes when we are still playing the game
     while (playing) {
@@ -64,12 +65,12 @@ int main() {
 
         // Process all the events
         ProcessEvents(event, *window);
-        Controls();
+        Controls(renderer);
 
         ball.Update();
         if (ball.CheckCollision(leftPaddle, rightPaddle, SCREEN_WIDTH, SCREEN_HEIGHT, scoreA, scoreB)) {
             SDL_SetWindowTitle(window, ("Pong | " + std::to_string(scoreA) + " : " + std::to_string(scoreB)).c_str());
-            PongRPC::UpdatePresence(scoreA, scoreB);
+            PongRPC::UpdatePresence(scoreA, scoreB, mode);
         }
 
         // Renders everything to the screen
@@ -106,7 +107,7 @@ void ProcessEvents(SDL_Event& pEvent, SDL_Window& pWindow) {
 /**
  * Process controls
  */
-void Controls() {
+void Controls(SDL_Renderer *pRenderer) {
     // Get the current state of the keyboard
     const Uint8 *state = SDL_GetKeyboardState(NULL);
 
@@ -115,8 +116,17 @@ void Controls() {
         playing = false;
     }
 
+    // Screenshots
+    if (state[SDL_SCANCODE_F2]) {
+        SDL_Surface *sshot = SDL_CreateRGBSurface(0, SCREEN_WIDTH, SCREEN_HEIGHT, 32,
+                0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000);
+        SDL_RenderReadPixels(pRenderer, nullptr, SDL_PIXELFORMAT_ARGB8888, sshot->pixels, sshot->pitch);
+        SDL_SaveBMP(sshot, "screenshot.bmp");
+        SDL_FreeSurface(sshot);
+    }
+
     // Check to see if the game is running in two players mode
-    if (twoPlayers) {
+    if (mode == LocalMultiplayer) {
         // Player 1
         if (state[SDL_SCANCODE_W]) {
             double move = PADDLE_SPEED * deltaTime;

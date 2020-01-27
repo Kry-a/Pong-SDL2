@@ -7,6 +7,7 @@
 #include <iostream>
 #include <chrono>
 #include "PongRPC.h"
+#include "MP.h"
 
 void PongRPC::InitRPC() {
     DiscordEventHandlers handlers;
@@ -20,7 +21,8 @@ void PongRPC::InitRPC() {
 
     // Discord_Initialize(const char* applicationId, DiscordEventHandlers* handlers, int autoRegister, const char* optionalSteamId)
     Discord_Initialize("671408940243746839", &handlers, 1, "1234");
-    std::cout << "Discord RPC has initialized" << std::endl;
+    First = std::chrono::system_clock::now().time_since_epoch() /
+            std::chrono::milliseconds(1);
 }
 
 void PongRPC::HandleDiscordReady(const DiscordUser *request) {
@@ -47,20 +49,33 @@ void PongRPC::HandleDiscordJoinRequest(const DiscordUser *request) {
     std::cout << "Someone wants to join the game | " << request->username << std::endl;
 }
 
-void PongRPC::UpdatePresence(int scoreA, int scoreB)
+void PongRPC::UpdatePresence(int scoreA, int scoreB, MultiplayerMode multiplayerMode)
 {
-    char buffer[256];
-    DiscordRichPresence discordPresence;
-    memset(&discordPresence, 0, sizeof(discordPresence));
-    discordPresence.state = "Local Multiplayer";
-    sprintf(buffer, "Player %d : %d Enemy", scoreA, scoreB);
-    discordPresence.details = buffer;
-    discordPresence.startTimestamp = std::chrono::system_clock::now().time_since_epoch() /
-                                     std::chrono::milliseconds(1);;
-    discordPresence.largeImageText = "Pong";
-    discordPresence.partyId = "ae488379-351d-4a4f-ad32-2b9b01c91657";
-    discordPresence.partySize = 2;
-    discordPresence.partyMax = 2;
-    discordPresence.instance = 1;
-    Discord_UpdatePresence(&discordPresence);
+    long now = std::chrono::system_clock::now().time_since_epoch() /
+               std::chrono::milliseconds(1);
+    if (now - LastUpload > 15000) {
+        char buffer[256];
+        DiscordRichPresence discordPresence;
+        memset(&discordPresence, 0, sizeof(discordPresence));
+        if (multiplayerMode == AgainstAI)
+            discordPresence.state = "Against AI";
+        else if (multiplayerMode == LocalMultiplayer)
+            discordPresence.state = "Local Multiplayer";
+        else
+            discordPresence.state = "Online Multiplayer";
+        sprintf(buffer, "Player %d : %d Enemy", scoreA, scoreB);
+        discordPresence.details = buffer;
+        discordPresence.startTimestamp = First;
+        discordPresence.largeImageKey = "cover";
+        discordPresence.largeImageText = "Pong";
+        discordPresence.partyId = "ae488379-351d-4a4f-ad32-2b9b01c91657";
+        if (multiplayerMode == OnlineMultiplayer)
+            discordPresence.partySize = 1;
+        else
+            discordPresence.partySize = 2;
+        discordPresence.partyMax = 2;
+        discordPresence.instance = 1;
+        Discord_UpdatePresence(&discordPresence);
+        LastUpload = now;
+    }
 }
