@@ -3,7 +3,7 @@
 //
 
 #include "Paddle.h"
-#include "Utils.h"
+#include "../Utils.h"
 
 void Paddle::Render(SDL_Renderer *pRenderer) {
     Utils::SetDrawColour(pRenderer, colour);

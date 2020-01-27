@@ -1,14 +1,14 @@
 #include <iostream>
 #include <SDL2/SDL.h>
-#include "Paddle.h"
-#include "Ball.h"
+#include "Objects/Paddle.h"
+#include "Objects/Ball.h"
 
 // Declares the width and height of the render area of the window
 #define SCREEN_WIDTH 512
 #define SCREEN_HEIGHT 256
 
 // Declares the speed which the paddle should move
-#define PADDLE_SPEED 150
+#define PADDLE_SPEED 250
 
 // If the game is supposed to be played by two people
 bool twoPlayers = true;
@@ -22,6 +22,9 @@ bool playing = true;
 Paddle leftPaddle(11, SCREEN_HEIGHT / 2 - 33);
 Paddle rightPaddle(SCREEN_WIDTH - 14, SCREEN_HEIGHT / 2 - 33);
 Ball ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+
+int scoreA = 0;
+int scoreB = 0;
 
 void ProcessEvents(SDL_Event& pEvent, SDL_Window& pWindow);
 void Controls();
@@ -54,7 +57,7 @@ int main() {
         Controls();
 
         ball.Update();
-        ball.CheckCollision(leftPaddle, rightPaddle, SCREEN_WIDTH, SCREEN_HEIGHT);
+        ball.CheckCollision(leftPaddle, rightPaddle, SCREEN_WIDTH, SCREEN_HEIGHT, scoreA, scoreB);
 
         // Renders everything to the screen
         Render(renderer, window);

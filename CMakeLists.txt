@@ -20,5 +20,5 @@ find_package(SDL2_gfx REQUIRED)
 
 add_subdirectory(include/random)
 
-add_executable(Pong main.cpp Paddle.cpp Paddle.h Utils.cpp Utils.h Ball.cpp Ball.h)
+add_executable(Pong main.cpp Objects/Paddle.cpp Objects/Paddle.h Utils.cpp Utils.h Objects/Ball.cpp Objects/Ball.h)
 target_link_libraries(${PROJECT_NAME} SDL2::Main SDL2::GFX effolkronium_random)
