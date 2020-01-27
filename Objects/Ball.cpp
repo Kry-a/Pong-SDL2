@@ -18,18 +18,32 @@ void Ball::Update() {
     yPos += yVelocity;
 }
 
-void Ball::CheckCollision(Paddle &lPaddle, Paddle &rPaddle, int w, int h, int &pScoreA, int &pScoreB) {
+/**
+ * Checks if the ball is colliding with edges of the screen or with a paddle
+ * @param lPaddle Left paddle
+ * @param rPaddle Right paddle
+ * @param w Width of the current window
+ * @param h Height of the current window
+ * @param pScoreA The score of player A
+ * @param pScoreB The score of player B
+ * @return If the ball has hit the wall and scored a point
+ */
+bool Ball::CheckCollision(Paddle &lPaddle, Paddle &rPaddle, int w, int h, int &pScoreA, int &pScoreB) {
     // Test if the ball is colliding with the border of the screen
     if (xPos >= (float)w - (float)radius) {
         xVelocity = -xVelocity;
         pScoreB++;
 
+        // Return the ball to the original place
         RestartBall();
+        return true;
     } else if (xPos <= (float)radius) {
         xVelocity = -xVelocity;
         pScoreA++;
 
+        // Return the ball to the original place
         RestartBall();
+        return true;
     }
 
     if (yPos >= (float)h - (float)radius || yPos <= (float)radius)
@@ -44,6 +58,8 @@ void Ball::CheckCollision(Paddle &lPaddle, Paddle &rPaddle, int w, int h, int &p
     if (xPos - (float)radius < rPaddle.xPos + rPaddle.rect.w && xPos + (float)radius > rPaddle.xPos &&
         yPos - (float)radius < rPaddle.yPos + rPaddle.rect.h && yPos + (float)radius > rPaddle.yPos)
         Bounce();
+
+    return false;
 }
 
 Ball::Ball(int x, int y) {
