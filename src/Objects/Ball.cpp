@@ -5,7 +5,6 @@
 #include <effolkronium/random.hpp>
 #include "Ball.h"
 #include "../Utils.h"
-#include <SDL2/SDL2_gfxPrimitives.h>
 
 using Random = effolkronium::random_static;
 
