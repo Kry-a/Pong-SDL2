@@ -10,7 +10,7 @@ set(CMAKE_CXX_COMPILER_TARGET ${triple})
 set(CMAKE_C_COMPILER "/usr/bin/clang")
 set(CMAKE_CXX_COMPILER "/usr/bin/clang++")]]
 
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/sdl2)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/cmake/sdl2)
 
 set(CMAKE_CXX_STANDARD 20)
 
@@ -18,7 +18,7 @@ set(SDL2_INCLUDE_DIR)
 find_package(SDL2 REQUIRED)
 find_package(SDL2_gfx REQUIRED)
 
-add_subdirectory(include/random)
+add_subdirectory(src/include/random)
 
-add_executable(Pong main.cpp Objects/Paddle.cpp Objects/Paddle.h Utils.cpp Utils.h Objects/Ball.cpp Objects/Ball.h)
+add_executable(Pong src/main.cpp src/Objects/Paddle.cpp src/Objects/Paddle.h src/Utils.cpp src/Utils.h src/Objects/Ball.cpp src/Objects/Ball.h)
 target_link_libraries(${PROJECT_NAME} SDL2::Main SDL2::GFX effolkronium_random)
