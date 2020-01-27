@@ -32,6 +32,8 @@ void Utils::DrawCircle(SDL_Renderer * renderer, int32_t centreX, int32_t centreY
     int32_t ty = 1;
     int32_t error = (tx - diameter);
 
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+
     while (x >= y) {
         //  Each of the following renders an octant of the circle
         SDL_RenderDrawPoint(renderer, centreX + x, centreY - y);
@@ -54,5 +56,11 @@ void Utils::DrawCircle(SDL_Renderer * renderer, int32_t centreX, int32_t centreY
             tx += 2;
             error += (tx - diameter);
         }
+    }
+}
+
+void Utils::DrawFilledCircle(SDL_Renderer *pRenderer, int centreX, int centreY, int radius) {
+    for (int i = radius; i > 0; i--) {
+        DrawCircle(pRenderer, centreX, centreY, i);
     }
 }
