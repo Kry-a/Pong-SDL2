@@ -19,12 +19,16 @@ public:
     float yPos;
     SDL_Color colour{.r = 255, .g = 255, .b = 255, .a = 255};
 
+    float xOrigin;
+    float yOrigin;
+
 public:
     void Bounce();
     void Update();
     void CheckCollision(Paddle &lPaddle, Paddle &rPaddle, int w, int h, int &pScoreA, int &pScoreB);
     Ball(int x, int y);
     void Render(SDL_Renderer *pRenderer);
+    void RestartBall();
 };
 
 

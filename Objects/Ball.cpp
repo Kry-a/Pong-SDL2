@@ -10,7 +10,7 @@ using Random = effolkronium::random_static;
 
 void Ball::Bounce() {
     xVelocity = -xVelocity;
-    yVelocity = Random::get(-8, 8);
+    yVelocity = Random::get(-6, 6);
 }
 
 void Ball::Update() {
@@ -23,9 +23,13 @@ void Ball::CheckCollision(Paddle &lPaddle, Paddle &rPaddle, int w, int h, int &p
     if (xPos >= (float)w - (float)radius) {
         xVelocity = -xVelocity;
         pScoreB++;
+
+        RestartBall();
     } else if (xPos <= (float)radius) {
         xVelocity = -xVelocity;
         pScoreA++;
+
+        RestartBall();
     }
 
     if (yPos >= (float)h - (float)radius || yPos <= (float)radius)
@@ -43,13 +47,23 @@ void Ball::CheckCollision(Paddle &lPaddle, Paddle &rPaddle, int w, int h, int &p
 }
 
 Ball::Ball(int x, int y) {
-    xVelocity = Random::get(4, 8);
-    yVelocity = Random::get(-8, 8);
+    xVelocity = Random::get(4, 6);
+    yVelocity = Random::get(-6, 6);
     radius = 10;
     xPos = (float)x;
     yPos = (float)y;
+    xOrigin = (float)x;
+    yOrigin = (float)y;
 }
 
 void Ball::Render(SDL_Renderer *pRenderer) {
     filledCircleRGBA(pRenderer, xPos, yPos, radius, colour.r, colour.g, colour.b, colour.a);
+}
+
+void Ball::RestartBall() {
+    xVelocity = Random::get(4, 6);
+    yVelocity = Random::get(4, 6);
+
+    xPos = xOrigin;
+    yPos = yOrigin;
 }
