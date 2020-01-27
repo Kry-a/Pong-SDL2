@@ -8,11 +8,18 @@
 
 using Random = effolkronium::random_static;
 
+/**
+ * Inverts the ball X velocity and returns a new random Y velocity
+ */
 void Ball::Bounce() {
     xVelocity = -xVelocity;
     yVelocity = Random::get(-6, 6);
 }
 
+/**
+ * Adds the ball velocity to it's position
+ * Needs to be executed every frame
+ */
 void Ball::Update() {
     xPos += xVelocity;
     yPos += yVelocity;
@@ -62,6 +69,11 @@ bool Ball::CheckCollision(Paddle &lPaddle, Paddle &rPaddle, int w, int h, int &p
     return false;
 }
 
+/**
+ * Initializes the ball class
+ * @param x Where the ball should be placed on the screen in the X axis
+ * @param y Where the ball should be placed on the screen in the Y axis
+ */
 Ball::Ball(int x, int y) {
     xVelocity = Random::get(4, 6);
     yVelocity = Random::get(-6, 6);
@@ -72,10 +84,17 @@ Ball::Ball(int x, int y) {
     yOrigin = (float)y;
 }
 
+/**
+ * Renders the ball in the target @see SDL_Renderer
+ * @param pRenderer The target renderer
+ */
 void Ball::Render(SDL_Renderer *pRenderer) {
     filledCircleRGBA(pRenderer, xPos, yPos, radius, colour.r, colour.g, colour.b, colour.a);
 }
 
+/**
+ * Returns the ball to it's original place
+ */
 void Ball::RestartBall() {
     xVelocity = Random::get(4, 6);
     yVelocity = Random::get(4, 6);
