@@ -2,6 +2,8 @@
 #include <SDL2/SDL.h>
 #include "Objects/Paddle.h"
 #include "Objects/Ball.h"
+#include "PongRPC.h"
+#include <discord_rpc.h>
 
 // Declares the width and height of the render area of the window
 #define SCREEN_WIDTH 512
@@ -43,6 +45,9 @@ int main() {
             SCREEN_WIDTH, SCREEN_HEIGHT, 0);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
+    PongRPC::InitRPC();
+    PongRPC::UpdatePresence(scoreA, scoreB);
+
     // A loop that executes when we are still playing the game
     while (playing) {
         // Calculating delta time
@@ -57,12 +62,16 @@ int main() {
         Controls();
 
         ball.Update();
-        if (ball.CheckCollision(leftPaddle, rightPaddle, SCREEN_WIDTH, SCREEN_HEIGHT, scoreA, scoreB))
+        if (ball.CheckCollision(leftPaddle, rightPaddle, SCREEN_WIDTH, SCREEN_HEIGHT, scoreA, scoreB)) {
             SDL_SetWindowTitle(window, ("Pong | " + std::to_string(scoreA) + " : " + std::to_string(scoreB)).c_str());
+            PongRPC::UpdatePresence(scoreA, scoreB);
+        }
 
         // Renders everything to the screen
         Render(renderer, window);
     }
+
+    Discord_Shutdown();
     
     // Cleans up SDL2 stuff before closing
     SDL_DestroyRenderer(renderer);
