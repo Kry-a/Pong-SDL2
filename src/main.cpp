@@ -39,7 +39,7 @@ int main() {
     // Init the video thingy
     SDL_Init(SDL_INIT_VIDEO);
     // Create Window and Renderer
-    window = SDL_CreateWindow("Pong", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+    window = SDL_CreateWindow("Pong | 0 : 0", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
             SCREEN_WIDTH, SCREEN_HEIGHT, 0);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
@@ -57,7 +57,8 @@ int main() {
         Controls();
 
         ball.Update();
-        ball.CheckCollision(leftPaddle, rightPaddle, SCREEN_WIDTH, SCREEN_HEIGHT, scoreA, scoreB);
+        if (ball.CheckCollision(leftPaddle, rightPaddle, SCREEN_WIDTH, SCREEN_HEIGHT, scoreA, scoreB))
+            SDL_SetWindowTitle(window, ("Pong | " + std::to_string(scoreA) + " : " + std::to_string(scoreB)).c_str());
 
         // Renders everything to the screen
         Render(renderer, window);
