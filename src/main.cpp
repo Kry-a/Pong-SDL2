@@ -63,6 +63,10 @@ int main() {
         // Renders everything to the screen
         Render(renderer, window);
     }
+    
+    // Cleans up SDL2 stuff before closing
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
 
     // Closes the game when we are finished playing
     SDL_Quit();
