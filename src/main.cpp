@@ -67,7 +67,7 @@ int main() {
         ProcessEvents(event, *window);
         Controls(renderer);
 
-        ball.Update();
+        ball.Update(deltaTime);
         if (ball.CheckCollision(leftPaddle, rightPaddle, SCREEN_WIDTH, SCREEN_HEIGHT, scoreA, scoreB)) {
             SDL_SetWindowTitle(window, ("Pong | " + std::to_string(scoreA) + " : " + std::to_string(scoreB)).c_str());
             PongRPC::UpdatePresence(scoreA, scoreB, mode);

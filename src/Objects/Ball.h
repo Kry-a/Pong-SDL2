@@ -24,7 +24,7 @@ public:
 
 public:
     void Bounce();
-    void Update();
+    void Update(double deltaTime);
     bool CheckCollision(Paddle &lPaddle, Paddle &rPaddle, int w, int h, int &pScoreA, int &pScoreB);
     Ball(int x, int y);
     void Render(SDL_Renderer *pRenderer);

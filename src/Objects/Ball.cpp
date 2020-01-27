@@ -20,9 +20,9 @@ void Ball::Bounce() {
  * Adds the ball velocity to it's position
  * Needs to be executed every frame
  */
-void Ball::Update() {
-    xPos += xVelocity;
-    yPos += yVelocity;
+void Ball::Update(double deltaTime) {
+    xPos += xVelocity * (float)deltaTime * 50;
+    yPos += yVelocity * (float)deltaTime * 50;
 }
 
 /**
