@@ -1,0 +1,20 @@
+language: cpp
+os: linux
+compiler: gcc
+
+cache: # see https://docs.travis-ci.com/user/caching/
+- directories:
+  - $HOME/.cache
+  
+addons:
+  apt:
+    sources:
+      - george-edison55-precise-backports
+    packages:
+      - cmake-data
+      - cmake
+      - make
+      - libsdl2-dev
+      - libsdl2-gfx-dev
+
+script: ./build.sh

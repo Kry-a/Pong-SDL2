@@ -10,7 +10,7 @@ set(CMAKE_CXX_COMPILER_TARGET ${triple})
 set(CMAKE_C_COMPILER "/usr/bin/clang")
 set(CMAKE_CXX_COMPILER "/usr/bin/clang++")]]
 
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/cmake/sdl2)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/cmake/sdl2-cmake-modules)
 
 set(CMAKE_CXX_STANDARD 20)
 
