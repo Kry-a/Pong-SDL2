@@ -8,7 +8,7 @@
 #define SCREEN_HEIGHT 256
 
 // Declares the speed which the paddle should move
-#define PADDLE_SPEED 250
+#define PADDLE_SPEED 500
 
 // If the game is supposed to be played by two people
 bool twoPlayers = true;
