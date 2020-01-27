@@ -19,9 +19,9 @@ void Ball::Update() {
 }
 
 void Ball::CheckCollision(Paddle lPaddle, Paddle rPaddle, int w, int h) {
-    if (xPos >= (float)w - (float)radius / 2 || xPos <= (float)radius / 2)
+    if (xPos >= (float)w - (float)radius || xPos <= (float)radius)
         xVelocity = -xVelocity;
-    if (yPos >= (float)h - (float)radius / 2 || yPos <= (float)radius / 2)
+    if (yPos >= (float)h - (float)radius || yPos <= (float)radius)
         yVelocity = -yVelocity;
 }
 
