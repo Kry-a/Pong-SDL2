@@ -1,6 +1,12 @@
 # Pong-SDL2
 A poorly written port of Pong to SDL2
 
+##Todo
+* Sound effects
+* Build instructions for Windows and/or MacOS
+* Actual builds for Windows and/or MacOS
+* Add Discord RPC integration because why not
+
 ## Building (Linux)
 * 1 . Install the dependencies
 ```bash
