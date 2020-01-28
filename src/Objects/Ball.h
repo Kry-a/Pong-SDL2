@@ -22,6 +22,8 @@ public:
     float xOrigin;
     float yOrigin;
 
+    bool hasCollidedInPreviousFrame;
+
 public:
     void Bounce();
     void Update(double deltaTime);

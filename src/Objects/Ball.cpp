@@ -14,6 +14,7 @@ using Random = effolkronium::random_static;
 void Ball::Bounce() {
     xVelocity = -xVelocity;
     yVelocity = Random::get(-6, 6);
+    hasCollidedInPreviousFrame = true;
 }
 
 /**
@@ -36,35 +37,43 @@ void Ball::Update(double deltaTime) {
  * @return If the ball has hit the wall and scored a point
  */
 bool Ball::CheckCollision(Paddle &lPaddle, Paddle &rPaddle, int w, int h, int &pScoreA, int &pScoreB) {
-    // Test if the ball is colliding with the border of the screen
-    if (xPos >= (float)w - (float)radius) {
-        xVelocity = -xVelocity;
-        pScoreA++;
+    // Check if ball has collided in the previous frame already
+    // if it has already collided it can't collide this frame
+    if (!hasCollidedInPreviousFrame) {
+        // Test if the ball is colliding with the border of the screen
+        if (xPos >= (float) w - (float) radius) {
+            xVelocity = -xVelocity;
+            pScoreA++;
 
-        // Return the ball to the original place
-        RestartBall();
-        return true;
-    } else if (xPos <= (float)radius) {
-        xVelocity = -xVelocity;
-        pScoreB++;
+            // Return the ball to the original place
+            RestartBall();
+            return true;
+        } else if (xPos <= (float) radius) {
+            xVelocity = -xVelocity;
+            pScoreB++;
 
-        // Return the ball to the original place
-        RestartBall();
-        return true;
+            // Return the ball to the original place
+            RestartBall();
+            return true;
+        }
+
+        if (yPos >= (float) h - (float) radius || yPos <= (float) radius) {
+            yVelocity = -yVelocity;
+            hasCollidedInPreviousFrame = true;
+        }
+
+        // Left paddle collision testing
+        if (xPos - (float) radius < lPaddle.xPos + lPaddle.rect.w && xPos + (float) radius > lPaddle.xPos &&
+            yPos - (float) radius < lPaddle.yPos + lPaddle.rect.h && yPos + (float) radius > lPaddle.yPos)
+            Bounce();
+
+        // Right paddle collision testing
+        if (xPos - (float) radius < rPaddle.xPos + rPaddle.rect.w && xPos + (float) radius > rPaddle.xPos &&
+            yPos - (float) radius < rPaddle.yPos + rPaddle.rect.h && yPos + (float) radius > rPaddle.yPos)
+            Bounce();
+    } else {
+        hasCollidedInPreviousFrame = false;
     }
-
-    if (yPos >= (float)h - (float)radius || yPos <= (float)radius)
-        yVelocity = -yVelocity;
-
-    // Left paddle collision testing
-    if (xPos - (float)radius < lPaddle.xPos + lPaddle.rect.w && xPos + (float)radius > lPaddle.xPos &&
-        yPos - (float)radius < lPaddle.yPos + lPaddle.rect.h && yPos + (float)radius > lPaddle.yPos)
-        Bounce();
-
-    // Right paddle collision testing
-    if (xPos - (float)radius < rPaddle.xPos + rPaddle.rect.w && xPos + (float)radius > rPaddle.xPos &&
-        yPos - (float)radius < rPaddle.yPos + rPaddle.rect.h && yPos + (float)radius > rPaddle.yPos)
-        Bounce();
 
     return false;
 }
@@ -82,6 +91,7 @@ Ball::Ball(int x, int y) {
     yPos = (float)y;
     xOrigin = (float)x;
     yOrigin = (float)y;
+    hasCollidedInPreviousFrame = false;
 }
 
 /**
