@@ -60,7 +60,12 @@ void Utils::DrawCircle(SDL_Renderer * renderer, int32_t centreX, int32_t centreY
 }
 
 void Utils::DrawFilledCircle(SDL_Renderer *pRenderer, int centreX, int centreY, int radius) {
-    for (int i = radius; i > 0; i--) {
-        DrawCircle(pRenderer, centreX, centreY, i);
+    SDL_SetRenderDrawColor(pRenderer, 255, 255, 255, 255);
+    for (int x = -radius; x < radius; x++)
+    {
+        int height = (int)sqrt(radius * radius - x * x);
+
+        for (int y = -height; y < height; y++)
+            SDL_RenderDrawPoint(pRenderer, x + centreX, y + centreY);
     }
 }
