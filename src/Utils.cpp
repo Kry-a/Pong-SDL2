@@ -59,6 +59,8 @@ void Utils::DrawCircle(SDL_Renderer * renderer, int32_t centreX, int32_t centreY
     }
 }
 
+
+// TODO: Create a sprite for the circle and draw it instead of sqrt() everything
 void Utils::DrawFilledCircle(SDL_Renderer *pRenderer, int centreX, int centreY, int radius) {
     SDL_SetRenderDrawColor(pRenderer, 255, 255, 255, 255);
     for (int x = -radius; x < radius; x++)
